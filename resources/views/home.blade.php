@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -24,6 +23,13 @@
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
+                            <br>
+                            <label for="">Select Tags</label>
+                            <select class=" mt-2 form-control select2-limit" name="" multiple="multiple">
+                                @foreach ($tags as $tag)
+                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
 
                             <input name="submit" type="Submit" value="Publish your Post" class="mt-4 btn btn-success">
 
@@ -32,13 +38,12 @@
                 </div>
                 <div class="card mt-5" style="background: lightgreen">
                     <div class="card-body mt-2">
-                        <h2>All Posts</h2>
-                        @foreach ($posts as $post)
+                        <h2>My Posts</h2>
+                        @foreach ($user->posts as $post)
                             <div class="mt-2 card card-body">
-
                                 <h4>{{ $post->title }}</h4> <mark><small style="color: #ee28bc;">in
-                                        <a href="{!! route('category', $category->id) !!}">{{ $post->category->name }}</a>
-                                        by {{ $post->user->name }}</small></mark>
+                                        <a href="{!! route('category', $post->category->id) !!}">{{ $post->category->name }}</a>
+                                    </small></mark>
                                 <div>
                                     {!! $post->description !!}
                                 </div>
@@ -49,4 +54,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(".select2-limit").select2({
+            maximumSelectionLength: 3
+        });
+    </script>
 @endsection
