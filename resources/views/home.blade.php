@@ -25,7 +25,7 @@
                             </select>
                             <br>
                             <label for="">Select Tags</label>
-                            <select class=" mt-2 form-control select2-limit" name="" multiple="multiple">
+                            <select class=" mt-2 form-control select2-limit" name="tags[]" multiple="multiple">
                                 @foreach ($tags as $tag)
                                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                 @endforeach
@@ -46,6 +46,12 @@
                                     </small></mark>
                                 <div>
                                     {!! $post->description !!}
+                                </div>
+                                <hr>
+                                <div>
+                                    @foreach ($post->tags as $tag)
+                                        <small><mark>{{ $tag->name }}</mark></small>
+                                    @endforeach
                                 </div>
                             </div>
                         @endforeach

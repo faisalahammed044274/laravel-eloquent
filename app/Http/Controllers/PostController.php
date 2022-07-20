@@ -22,6 +22,8 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post->user_id = Auth::id();
         $post->save();
+
+        $post->tags()->sync($request->tags, false);
         return redirect('/home');
     }
 
